@@ -56,6 +56,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	objGround = Object3d::Create();
 	objFighter = Object3d::Create();
 	objSphere = Object3d::Create();
+	objSphere2 = Object3d::Create();
 
 	// テクスチャ2番に読み込み
 	Sprite::LoadTexture(2, L"Resources/texture.png");
@@ -63,15 +64,18 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	modelSkydome = Model::CreateFromOBJ("skydome");
 	modelGround = Model::CreateFromOBJ("ground");
 	modelFighter = Model::CreateFromOBJ("chr_sword");
-	modelSphere = Model::CreateFromOBJ("sphere");
+	modelSphere = Model::CreateFromOBJ("sphere",true);
+	modelSphere2 = Model::CreateFromOBJ("sphere",false);
 
 	objSkydome->SetModel(modelSkydome);
 	objGround->SetModel(modelGround);
 	objFighter->SetModel(modelFighter);
 	objSphere->SetModel(modelSphere);
+	objSphere2->SetModel(modelSphere2);
 
 	objFighter->SetPosition({ +1,0,0 });
 	objSphere->SetPosition({ -1,1,0 });
+	objSphere2->SetPosition({ +1,1,0 });
 }
 
 void GameScene::Update()
@@ -82,10 +86,18 @@ void GameScene::Update()
 	objGround->Update();
 	objFighter->Update();
 	objSphere->Update();
+	objSphere2->Update();
 
 	debugText.Print("AD: move camera LeftRight", 50, 50, 1.0f);
 	debugText.Print("WS: move camera UpDown", 50, 70, 1.0f);
 	debugText.Print("ARROW: move camera FrontBack", 50, 90, 1.0f);
+
+	// オブジェクトの回転
+	{
+		XMFLOAT3 rot = objSphere->GetRotation();
+		rot.y += 1.0f;
+		objSphere->SetRotation(rot);
+	}
 }
 
 void GameScene::Draw()
@@ -97,7 +109,7 @@ void GameScene::Draw()
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 	// 背景スプライト描画
-	spriteBG->Draw();
+	//spriteBG->Draw();
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -114,10 +126,11 @@ void GameScene::Draw()
 	Object3d::PreDraw(cmdList);
 
 	// 3Dオブクジェクトの描画
-	//objSkydome->Draw();
-	//objGround->Draw();
-	objFighter->Draw();
+	objSkydome->Draw();
+	objGround->Draw();
+	//objFighter->Draw();
 	objSphere->Draw();
+	objSphere2->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
