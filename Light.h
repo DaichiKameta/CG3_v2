@@ -1,4 +1,7 @@
 #pragma once
+#include <d3d12.h>
+#include "DirectXMath.h"
+#include <wrl.h>
 
 #include "Material.h"
 /// <summary>
@@ -57,7 +60,6 @@ public:// ƒƒ“ƒoŠÖ”
 	/// <param name="cmdList"></param>
 	/// <param name="rootParameterIndex"></param>
 	void Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParameterIndex);
-
 
 	static Light* Create();
 

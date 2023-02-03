@@ -18,6 +18,7 @@ void Light::Initialize()
 	cbResourceDesc.SampleDesc.Count = 1;
 	cbResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 	ID3D12Resource* constBuffMaterial = nullptr;
+
 	// 定数バッファの生成
 	HRESULT result;
 	result = device->CreateCommittedResource(

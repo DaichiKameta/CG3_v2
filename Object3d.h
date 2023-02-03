@@ -8,6 +8,7 @@
 #include <string>
 #include "Model.h"
 #include "Camera.h"
+#include "Light.h"
 
 /// <summary>
 /// 3Dオブジェクト
@@ -37,7 +38,10 @@ public: // サブクラス
 	// 定数バッファ用データ構造体B0
 	struct ConstBufferDataB0
 	{
-		XMMATRIX mat;	// ３Ｄ変換行列
+		//XMMATRIX mat;	// ３Ｄ変換行列
+		XMMATRIX viewproj;
+		XMMATRIX world;
+		XMFLOAT3 cameraPos;
 	};
 
 private: // 定数
@@ -78,6 +82,13 @@ public: // 静的メンバ関数
 	/// </summary>
 	/// <returns></returns>
 	static Object3d* Create();
+
+	/// <summary>
+	/// ライト
+	/// </summary>
+	static Light* light;
+
+	static void SetLight(Light* light) { Object3d::light = light; }
 
 private: // 静的メンバ変数
 	// デバイス
@@ -156,4 +167,3 @@ private: // メンバ変数
 	// 定数バッファのマップ
 	ConstBufferDataB0* constMap = nullptr;
 };
-
